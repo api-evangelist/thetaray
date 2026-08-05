@@ -1,23 +1,124 @@
 aid: thetaray
 name: ThetaRay
-description: 'ThetaRay is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: >-
+  ThetaRay is an Israeli/US financial-crime-compliance software company that applies its patented
+  "Cognitive AI" anomaly-detection technology to anti-money-laundering (AML) transaction monitoring,
+  sanctions and customer screening, PEP screening, and customer risk assessment for banks, fintechs
+  and payment service providers. Its cloud-native SaaS platform ingests SWIFT and domestic payment
+  traffic, KYC/customer data and risk indicators to surface suspected money laundering, terrorist
+  financing and sanctions-evasion typologies in cross-border and domestic payments, with an agentic
+  AI investigation product ("RAY") that automates and explains alert triage inside a single case
+  manager. ThetaRay markets an API-based architecture for integrating monitoring and screening into
+  existing workflows, and publishes a developer portal at api.thetaray.com — but that portal, the
+  documentation host docs.thetaray.com, and every specification behind them sit behind customer SSO,
+  so no machine-readable contract is publicly retrievable. Offices in New York, London, Madrid,
+  Tel Aviv and Dubai; also distributed through the Microsoft commercial marketplace.
+image: https://thetaray.com/wp-content/themes/thetaray/images/logo.svg
 url: https://raw.githubusercontent.com/api-evangelist/thetaray/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
-specificationVersion: '0.20'
+specificationVersion: '0.21'
 created: '2026-08-05'
 modified: '2026-08-05'
 tags:
-- Company
-apis: []
+- anti-money-laundering
+- financial-crime
+- transaction-monitoring
+- sanctions-screening
+- kyc
+- regtech
+- risk-assessment
+- artificial-intelligence
+- banking
+- fintech
+- payments
+- compliance
+- mcp
+apis:
+- name: ThetaRay Developer Portal API Surface
+  description: >-
+    ThetaRay publishes an API developer portal at api.thetaray.com, hosted on Redocly Cloud. The
+    portal root redirects to /openapi and then to an OIDC login at auth.cloud.redocly.com, so the
+    API reference and every OpenAPI document behind it require a customer account. The host does
+    serve two anonymous discovery documents — an RFC 8414 OAuth 2.0 authorization server metadata
+    document and an RFC 9728 protected-resource metadata document — and it exposes a live
+    Model Context Protocol endpoint at /mcp which answers an unauthenticated request with a
+    WWW-Authenticate Bearer challenge naming that resource metadata.
+  humanURL: https://api.thetaray.com/openapi
+  baseURL: https://api.thetaray.com
+  tags:
+  - anti-money-laundering
+  - transaction-monitoring
+  - sanctions-screening
+  - regtech
+  - mcp
+  properties:
+  - type: DeveloperPortal
+    url: https://api.thetaray.com/openapi
+  - type: MCPServer
+    url: mcp/thetaray-mcp.yml
+  - type: Authentication
+    url: authentication/thetaray-authentication.yml
+  - type: OAuthScopes
+    url: scopes/thetaray-scopes.yml
+  - type: WellKnown
+    url: well-known/thetaray-well-known.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DomainSecurity
+  url: security/thetaray-domain-security.yml
 - type: Website
+  url: https://thetaray.com/
+- type: Blog
+  url: https://thetaray.com/blog/
+- type: BlogRSS
+  url: https://thetaray.com/feed/
+- type: Support
+  url: https://thetaray.com/contact/
+- type: TermsOfService
+  url: https://thetaray.com/terms-and-conditions/
+- type: PrivacyPolicy
+  url: https://thetaray.com/privacy-policy/
+- type: Partners
+  url: https://thetaray.com/partners/
+- type: Vocabulary
+  url: https://thetaray.com/glossary-of-terms/
+- type: SecondaryMarket
   url: https://www.hiive.com/securities/thetaray-stock
+- type: LLMsTxt
+  url: llms/thetaray-llms.txt
+- type: Conformance
+  url: conformance/thetaray-conformance.yml
+- type: WellKnown
+  url: well-known/thetaray-well-known.yml
+x-enrichment:
+  date: '2026-08-05'
+  status: minimal
+  artifacts_added: 9
+  pass: local-v1
+x-coverage:
+  state: gated
+  reason: customer-only-docs
+  detail: >-
+    ThetaRay's API developer portal at api.thetaray.com is a Redocly Cloud site whose every route —
+    including /openapi and /_spec/* — 302s to an OIDC login at auth.cloud.redocly.com, and the
+    separate docs.thetaray.com host 302s to a Microsoft Entra SAML sign-in, so the OpenAPI that
+    portal exists to serve is readable only by existing ThetaRay customers.
+  evidence:
+  - url: https://api.thetaray.com/openapi
+    status: 302
+  - url: https://api.thetaray.com/_spec/openapi.yaml
+    status: 401
+  - url: http://docs.thetaray.com/
+    status: 302
+  - url: https://api.thetaray.com/mcp
+    status: 401
+  - url: https://api.thetaray.com/openapi.json
+    status: 404
+  - url: https://api.thetaray.com/.well-known/oauth-authorization-server
+    status: 200
+  checked: '2026-08-05'

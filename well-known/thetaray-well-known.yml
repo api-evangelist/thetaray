@@ -1,0 +1,68 @@
+generated: '2026-08-05'
+method: probed
+source: live GET of /.well-known/* on every ThetaRay host in apis.yml
+note: >-
+  A control path (/.well-known/zzz-bogus-control) was probed on api.thetaray.com first and returned
+  404, so the 200s recorded below are genuine documents and not a catch-all soft-200. The two hits
+  are served by the Redocly Cloud developer-portal platform that ThetaRay runs on api.thetaray.com;
+  they describe access to the portal and to its Model Context Protocol endpoint, not to ThetaRay's
+  AML product API, whose contract is behind customer SSO.
+hosts:
+- host: https://api.thetaray.com
+  documents:
+  - path: /.well-known/oauth-authorization-server
+    standard: RFC 8414 OAuth 2.0 Authorization Server Metadata
+    status: 200
+    file: thetaray-oauth-authorization-server.json
+  - path: /.well-known/oauth-protected-resource/mcp
+    standard: RFC 9728 OAuth 2.0 Protected Resource Metadata
+    status: 200
+    file: thetaray-oauth-protected-resource-mcp.json
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /.well-known/zzz-bogus-control
+    status: 404
+    note: control probe — confirms this host does not answer 200 to arbitrary well-known paths
+- host: https://thetaray.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /llms.txt
+    status: 404
+  - path: /robots.txt
+    status: 200
+    note: not saved — Yoast-generated WordPress robots.txt, Disallow empty, Crawl-delay 10
+summary:
+  security_txt: false
+  openid_configuration: false
+  oauth_authorization_server: true
+  oauth_protected_resource: true
+  api_catalog: false
+  agent_card: false
+  ai_plugin: false

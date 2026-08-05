@@ -1,0 +1,50 @@
+generated: '2026-08-05'
+method: probed
+status: published
+source: https://api.thetaray.com/mcp
+server:
+  name: thetaray
+  transport: http
+  url: https://api.thetaray.com/mcp
+  platform: Redocly Cloud developer portal MCP
+  scope: >-
+    Serves the ThetaRay API developer portal hosted at api.thetaray.com. This is the documentation
+    platform's MCP endpoint, not a ThetaRay AML product API; treat it as a docs/spec retrieval
+    surface for authenticated ThetaRay API customers.
+authorization:
+  required: true
+  challenge: 'WWW-Authenticate: Bearer resource_metadata="https://api.thetaray.com/.well-known/oauth-protected-resource/mcp"'
+  spec: RFC 9728 OAuth 2.0 Protected Resource Metadata
+  authorization_servers:
+  - https://api.thetaray.com
+  - https://auth.cloud.redocly.com
+  scopes:
+  - openid
+  - profile
+  - email
+  - offline_access
+  metadata:
+  - well-known/thetaray-oauth-protected-resource-mcp.json
+  - well-known/thetaray-oauth-authorization-server.json
+tools: []
+tools_note: >-
+  tools/list and initialize both return HTTP 401 {"error":"unauthorized"} without a bearer token,
+  so the live tool set and its inputSchemas require authenticated introspection. No tool list was
+  recovered and none is inferred here — ThetaRay publishes no llms.txt and no public API reference
+  from which tool names could be read.
+x-evidence:
+- fetched: '2026-08-05'
+  url: https://api.thetaray.com/mcp
+  method: POST tools/list (jsonrpc 2.0)
+  http_status: 401
+  www_authenticate: Bearer resource_metadata="https://api.thetaray.com/.well-known/oauth-protected-resource/mcp"
+  content_type: application/json
+- fetched: '2026-08-05'
+  url: https://api.thetaray.com/mcp
+  method: POST initialize (jsonrpc 2.0)
+  http_status: 401
+- fetched: '2026-08-05'
+  url: https://api.thetaray.com/.well-known/oauth-protected-resource/mcp
+  http_status: 200
+  content_type: application/json
+  note: resource field confirms https://api.thetaray.com/mcp is a declared protected MCP resource

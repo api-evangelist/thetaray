@@ -1,0 +1,69 @@
+generated: '2026-08-05'
+method: probed
+source: https://api.thetaray.com/.well-known/oauth-authorization-server
+raw: well-known/thetaray-oauth-authorization-server.json
+scope_note: >-
+  Derived entirely from the anonymous RFC 8414 metadata document that api.thetaray.com serves. It
+  governs access to the ThetaRay developer portal and its MCP endpoint (both Redocly Cloud). The
+  authentication model of ThetaRay's AML transaction-monitoring and screening product API is NOT
+  described here — that contract sits behind the customer SSO wall and was not retrievable. No
+  OpenAPI securitySchemes were available to derive from.
+summary:
+  types:
+  - oauth2
+  oauth2_flows:
+  - authorizationCode
+  - clientCredentials
+  refresh_tokens: true
+  pkce: true
+  pkce_methods:
+  - S256
+  dynamic_client_registration: true
+  api_key_in: []
+schemes:
+- name: RedoclyPortalOAuth2
+  type: oauth2
+  issuer: https://auth.cloud.redocly.com
+  jwks_uri: https://auth.cloud.redocly.com/.well-known/jwks.json
+  registration_endpoint: https://api.thetaray.com/_mcp/register
+  token_endpoint_auth_methods:
+  - none
+  id_token_signing_alg_values:
+  - RS256
+  subject_types:
+  - public
+  client_id_metadata_document_supported: true
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://api.thetaray.com/_mcp/oauth2/auth
+    tokenUrl: https://api.thetaray.com/_mcp/oauth2/token-portal
+    scopes:
+    - openid
+    - profile
+    - email
+    - offline_access
+  - flow: clientCredentials
+    tokenUrl: https://api.thetaray.com/_mcp/oauth2/token-portal
+  sources:
+  - well-known/thetaray-oauth-authorization-server.json
+protected_resources:
+- resource: https://api.thetaray.com/mcp
+  bearer_methods:
+  - header
+  token_types:
+  - Bearer
+  source: well-known/thetaray-oauth-protected-resource-mcp.json
+gated_surfaces:
+- url: https://api.thetaray.com/openapi
+  status: 302
+  to: https://auth.cloud.redocly.com/oidc/oauth2/auth
+  note: developer portal / API reference requires a ThetaRay customer account
+- url: http://docs.thetaray.com/
+  status: 302
+  to: https://login.microsoftonline.com/f176e0ee-1f77-4c82-94c8-fb98d2d81117/saml2
+  note: documentation host requires Microsoft Entra SAML sign-in
+x-evidence:
+- fetched: '2026-08-05'
+  url: https://api.thetaray.com/.well-known/oauth-authorization-server
+  http_status: 200
+  content_type: application/json

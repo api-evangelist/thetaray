@@ -1,0 +1,50 @@
+generated: '2026-08-05'
+method: probed
+source: https://api.thetaray.com/.well-known/oauth-authorization-server
+raw: well-known/thetaray-oauth-authorization-server.json
+scope_note: >-
+  These are the OAuth 2.0 scopes advertised by the authorization server that fronts the ThetaRay
+  developer portal and its MCP endpoint on api.thetaray.com. They are identity/session scopes, not
+  ThetaRay product permissions — ThetaRay publishes no public scope or permission reference for its
+  AML monitoring and screening API, and no OpenAPI with oauth2 securitySchemes was retrievable.
+schemes:
+- name: RedoclyPortalOAuth2
+  source: well-known/thetaray-oauth-authorization-server.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://api.thetaray.com/_mcp/oauth2/auth
+    tokenUrl: https://api.thetaray.com/_mcp/oauth2/token-portal
+  - flow: clientCredentials
+    tokenUrl: https://api.thetaray.com/_mcp/oauth2/token-portal
+scopes:
+- scope: openid
+  description: OpenID Connect authentication; issue an ID token for the signed-in portal user.
+  flows:
+  - authorizationCode
+  sources:
+  - well-known/thetaray-oauth-authorization-server.json
+- scope: profile
+  description: Access the signed-in user's basic profile claims.
+  flows:
+  - authorizationCode
+  sources:
+  - well-known/thetaray-oauth-authorization-server.json
+- scope: email
+  description: Access the signed-in user's email address claim.
+  flows:
+  - authorizationCode
+  sources:
+  - well-known/thetaray-oauth-authorization-server.json
+- scope: offline_access
+  description: Issue a refresh token so an agent or client can renew access without re-prompting.
+  flows:
+  - authorizationCode
+  sources:
+  - well-known/thetaray-oauth-authorization-server.json
+x-evidence:
+- fetched: '2026-08-05'
+  url: https://api.thetaray.com/.well-known/oauth-authorization-server
+  http_status: 200
+- fetched: '2026-08-05'
+  url: https://api.thetaray.com/.well-known/oauth-protected-resource/mcp
+  http_status: 200

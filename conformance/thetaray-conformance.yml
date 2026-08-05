@@ -1,0 +1,77 @@
+generated: '2026-08-05'
+method: probed
+source: >-
+  live probes of api.thetaray.com, docs.thetaray.com and thetaray.com; no OpenAPI, AsyncAPI or
+  GraphQL contract was publicly retrievable, so every assertion below is grounded in an observed
+  HTTP response rather than in spec content.
+scope_note: >-
+  These findings describe the publicly reachable edge of ThetaRay's API developer portal (Redocly
+  Cloud) and its marketing site. They say nothing about the standards conformance of the ThetaRay
+  AML transaction-monitoring and screening product API itself, which is behind customer SSO.
+standards:
+- id: rfc8414-oauth-authorization-server-metadata
+  conforms: true
+  evidence: >-
+    GET https://api.thetaray.com/.well-known/oauth-authorization-server returned 200
+    application/json with issuer, authorization_endpoint, token_endpoint, jwks_uri and
+    grant_types_supported.
+- id: rfc9728-oauth-protected-resource-metadata
+  conforms: true
+  evidence: >-
+    GET https://api.thetaray.com/.well-known/oauth-protected-resource/mcp returned 200 declaring
+    resource=https://api.thetaray.com/mcp with bearer_methods_supported=[header]; the /mcp endpoint
+    returns the matching WWW-Authenticate Bearer resource_metadata challenge on an anonymous call.
+- id: oauth2
+  conforms: true
+  evidence: >-
+    grant_types_supported = [authorization_code, refresh_token, client_credentials] in the RFC 8414
+    metadata document.
+- id: rfc7636-pkce
+  conforms: true
+  evidence: code_challenge_methods_supported = [S256].
+- id: rfc7591-dynamic-client-registration
+  conforms: true
+  evidence: registration_endpoint = https://api.thetaray.com/_mcp/register.
+- id: oidc-core
+  conforms: partial
+  evidence: >-
+    openid scope and RS256 id_token_signing_alg_values_supported are advertised and the portal
+    redirects to https://auth.cloud.redocly.com/oidc/oauth2/auth, but
+    /.well-known/openid-configuration returns 404 on api.thetaray.com.
+- id: mcp
+  conforms: true
+  evidence: >-
+    https://api.thetaray.com/mcp answers JSON-RPC 2.0 POSTs with a 401 unauthorized envelope and an
+    RFC 9728 bearer challenge; the endpoint is live but tools/list requires authentication.
+- id: rfc8615-well-known-uris
+  conforms: true
+  evidence: >-
+    api.thetaray.com serves documents under /.well-known/ and returns 404 for a control path, so the
+    namespace is honored rather than catch-all handled.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returned 404 on both api.thetaray.com and thetaray.com.
+- id: openapi
+  conforms: unknown
+  evidence: >-
+    api.thetaray.com/openapi 302s to the Redocly Cloud OIDC login; /openapi.json, /openapi.yaml,
+    /swagger.json, /v1/openapi.json, /api-docs, /docs and /redoc all 404 anonymously and
+    /_spec/* returns 401 for every path including a control. A spec almost certainly exists behind
+    the wall; none is publicly retrievable.
+- id: asyncapi
+  conforms: unknown
+  evidence: no public event, streaming or webhook documentation was found on any reachable host.
+- id: iso27001
+  conforms: unknown
+  evidence: >-
+    thetaray.com renders a certification badge strip
+    (wp-content/uploads/2024/12/certifications-desktop.svg) but the SVG contains no text nodes, so
+    no certification name is machine-readable and none is asserted here.
+- id: soc2
+  conforms: unknown
+  evidence: same as iso27001 — badge artwork only, no named certification published as text.
+- id: gdpr
+  conforms: unknown
+  evidence: >-
+    GDPR is referenced in the thetaray.com privacy policy and homepage copy, but no compliance or
+    trust-center page exists (/trust/ and /compliance/ resolve to unrelated content or 404).
