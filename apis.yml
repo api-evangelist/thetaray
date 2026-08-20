@@ -21,6 +21,20 @@ specificationVersion: '0.23'
 created: '2026-08-05'
 modified: '2026-08-05'
 tags:
+- Anti-Money Laundering
+- Financial Crime
+- Transaction Monitoring
+- Sanctions Screening
+- KYC
+- RegTech
+- Risk Assessment
+- Artificial Intelligence
+- Banking
+- Fintech
+- Payments
+- Compliance
+- MCP
+tags_raw:
 - anti-money-laundering
 - financial-crime
 - transaction-monitoring
@@ -47,6 +61,12 @@ apis:
   humanURL: https://api.thetaray.com/openapi
   baseURL: https://api.thetaray.com
   tags:
+  - Anti-Money Laundering
+  - Transaction Monitoring
+  - Sanctions Screening
+  - RegTech
+  - MCP
+  tags_raw:
   - anti-money-laundering
   - transaction-monitoring
   - sanctions-screening
