@@ -13,6 +13,17 @@ description: >-
   documentation host docs.thetaray.com, and every specification behind them sit behind customer SSO,
   so no machine-readable contract is publicly retrievable. Offices in New York, London, Madrid,
   Tel Aviv and Dubai; also distributed through the Microsoft commercial marketplace.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://thetaray.com/wp-content/themes/thetaray/images/logo.svg
 url: https://raw.githubusercontent.com/api-evangelist/thetaray/refs/heads/main/apis.yml
 x-type: company
