@@ -46,7 +46,7 @@ specificationVersion: '0.23'
 created: '2026-08-05'
 modified: '2026-08-05'
 tags:
-- Anti-Money Laundering
+- AML
 - Financial Crime
 - Transaction Monitoring
 - Sanctions Screening
@@ -73,6 +73,7 @@ tags_raw:
 - payments
 - compliance
 - mcp
+- Anti-Money Laundering
 apis:
 - name: ThetaRay Developer Portal API Surface
   description: >-
@@ -86,7 +87,7 @@ apis:
   humanURL: https://api.thetaray.com/openapi
   baseURL: https://api.thetaray.com
   tags:
-  - Anti-Money Laundering
+  - AML
   - Transaction Monitoring
   - Sanctions Screening
   - RegTech
@@ -97,6 +98,7 @@ apis:
   - sanctions-screening
   - regtech
   - mcp
+  - Anti-Money Laundering
   properties:
   - type: DeveloperPortal
     url: https://api.thetaray.com/openapi
