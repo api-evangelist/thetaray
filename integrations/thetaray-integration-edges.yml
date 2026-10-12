@@ -1,0 +1,16 @@
+generated: '2026-10-12'
+method: none
+source:
+- https://zapier.com/apps/thetaray/integrations
+- https://n8n.io/integrations/thetaray/
+- https://composio.dev/toolkits/thetaray
+- https://monid.ai/tools/thetaray
+checked:
+- https://composio.dev/toolkits/thetaray
+- https://monid.ai/tools/thetaray
+- https://n8n.io/integrations/thetaray/
+- https://zapier.com/apps/thetaray/integrations
+summary: null
+marketplace_apps: []
+edges: []
+templates: []
